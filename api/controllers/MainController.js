@@ -18,48 +18,42 @@ var MainController = {
     index: function (req, res) {
         res.view();
     },
-    signup: function (req, res) {
-         
-    },
-    login: function (req, res) {
-         
-    },
-    chat: function (req, res) {
-         
-    }
-};
 
-signup: function (req, res) {
-        var username = req.param("username");
-        var password = req.param("password");
-         
-        Users.findByUsername(username).done(function(err, usr){
-            if (err) {
-                res.send(500, { error: "DB Error" });
-            } else if (usr) {
-                res.send(400, {error: "Username already Taken"});
-            } else {
-                var hasher = require("password-hash");
-                password = hasher.generate(password);
-                 
-                Users.create({username: username, password: password}).done(function(error, user) {
-                if (error) {
-                    res.send(500, {error: "DB Error"});
+    signup: function (req, res) {
+            var username = req.param("username");
+            var password = req.param("password");
+             
+            Users.findOneByUsername(username).done(function(err, usr){
+                if (err) {
+                    res.set('error', 'DB Error');
+                    res.send(500, { error: "DB Error" });
+                } else if (usr) {
+                    res.set('error', 'Username already Taken');
+                    res.send(400, {error: "Username already Taken"});
                 } else {
-                    req.session.user = user;
-                    res.send(user);
-                }
-            });
-        }
-    });
-}
+                    var hasher = require("password-hash");
+                    password = hasher.generate(password);
+                     
+                    Users.create({username: username, password: password}).done(function(error, user) {
+                    if (error) {
+                        res.set('error','DB Error');
+                        res.send(500, {error: "DB Error"});
+                    } else {
+                        req.session.user = user;
+                        res.send(user);
+                    }
+                });
+            }
+        });
+    },
 
 login: function (req, res) {
     var username = req.param("username");
     var password = req.param("password");
      
-    Users.findByUsername(username).done(function(err, usr) {
+    Users.findOneByUsername(username).done(function(err, usr) {
         if (err) {
+            res.set('error', 'DB Error');
             res.send(500, { error: "DB Error" });
         } else {
             if (usr) {
@@ -68,14 +62,16 @@ login: function (req, res) {
                     req.session.user = usr;
                     res.send(usr);
                 } else {
+                    res.set('error', 'Wrong Password');
                     res.send(400, { error: "Wrong Password" });
                 }
             } else {
+                res.set('error', 'User not Found');
                 res.send(404, { error: "User not Found" });
             }
         }
     });
-}
+},
 
 chat: function (req, res) {
     if (req.session.user) {
@@ -84,5 +80,6 @@ chat: function (req, res) {
         res.redirect('/');
     }
 }
+};
 
 module.exports = MainController;
