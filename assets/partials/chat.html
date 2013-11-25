@@ -1,9 +1,4 @@
 <div id="chatContainer">
-  <div id="newMessageForm">
-    <textarea ng-model="message" id="message" placeholder="Enter your message here:"></textarea>
-    <br>
-    <button ng-click="buttonClick()" id="postMessageButton">Add Message</button>
-  </div>
   <div id="messagesContainer">
     <ul>
       <script type="text/ng-template" id="message.html">
@@ -25,4 +20,8 @@
       </chat-message>
     </ul>
   </div>
+  </div>
+   <div id="newMessageForm">
+    <textarea ng-model="message" id="message" placeholder="Enter your message here:"></textarea>
+    <button ng-click="buttonClick()" id="postMessageButton">Add Message</button>
 </div>

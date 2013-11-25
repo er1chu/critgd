@@ -1,7 +1,15 @@
+#newMessageWraper {
+
+}
 #newMessageForm {
 	margin-left: 10px;
 }
 
+#messagesContainer {
+	width: 100%;
+	height: 90%; !important
+	overflow-y: scroll;
+}
 #newMessageForm button {
 	margin-top: 10px;
 }
