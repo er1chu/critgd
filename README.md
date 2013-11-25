@@ -9,4 +9,4 @@ no new friends
 3. Front-end
 4. User-profiles
 5. Re-factor Socket instances
-6. ????
+6. Permalinks
