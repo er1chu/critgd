@@ -1,0 +1,28 @@
+<div id="chatContainer">
+  <div id="newMessageForm">
+    <textarea ng-model="message" id="message" placeholder="Enter your message here:"></textarea>
+    <br>
+    <button ng-click="buttonClick()" id="postMessageButton">Add Message</button>
+  </div>
+  <div id="messagesContainer">
+    <ul>
+      <script type="text/ng-template" id="message.html">
+        <li>
+          <p ng-transclude><b><a href='#/users/{{ userId }}'>{{ username }}</a></b>:</p>
+          <span>- <a class="delete" ng-click="destroy(messageId)" prevent-default>DELETE</a></span>
+          <hr>
+        </li>
+      </script>
+
+      <chat-message
+        class="message"
+        ng-repeat="message in messages"
+        username="{{message.username}}"
+        user-id="{{message.userId}}"
+        message-id="{{message.id}}"
+        destroy="destroy({messageId:message.id})">
+        <a href="#/chat/{{message.id}}">{{message.message}}</a>
+      </chat-message>
+    </ul>
+  </div>
+</div>
