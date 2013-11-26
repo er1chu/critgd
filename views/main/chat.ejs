@@ -1,9 +1,12 @@
 <h2>Welcome <%= username %></h2>
+<hr>
+<div id="messageWrapper">
+<div id="messagesContainer">
+</div>
 <div id="newMessageForm">
-    <textarea id="message" placeholder="Enter your message here:"></textarea>
+    <input id="message" placeholder="Enter your message here:"></input>
     <button id="postMessageButton">Add Message</button>
 </div>
-<div id="messagesContainer">
 </div>
 <script>
     var MessageModel = Backbone.Model.extend({
@@ -73,7 +76,7 @@
             this.collection.on('add', this.render, this);
             this.render();
         },
-        template: _.template("<div><p><b>{{ username }}: </b>{{ message }}</p></div>"),
+        template: _.template("<div class='msg'><p><b><a href='/users/show/{{ userId }}/'>{{ username }}</a>: </b>{{ message }}</p></div>"),
         render: function () {
                 this.$el.html("");
                 this.collection.each(function(msg){
