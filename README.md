@@ -1,6 +1,8 @@
 # critgd
 ## grafisch ontwerper hyper-community
-no new friends
+no new friends.
+
+Sorry for the delay I'm working on it :(
 ----
 ### To-Do List:
 
